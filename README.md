@@ -25,8 +25,8 @@
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/instascan.git
-   cd instascan
+   git clone https://github.com/harsifatsingh/InstaScan.git
+   cd InstaScan
    ```
 
 2. **Open `index.html`**
