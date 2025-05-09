@@ -97,10 +97,4 @@
 
 ---
 
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute it as you see fit.
-
----
-
 **Made with ❤️ by Harsifat Singh — because your privacy matters.**
