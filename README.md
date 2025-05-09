@@ -2,7 +2,7 @@
 
 **Find out who doesn't follow you back on Instagram — all processed locally in your browser for maximum privacy.**
 
-![InstaScan Preview](./img/Screenshot%202025-05-09%20at%207.00.14%E2%80%AFPM.png)
+![InstaScan Preview](./img/Screenshot%202025-05-09%20at%207.16.11 PM.png)
 
 ---
 
