@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insta Unfollowers Analyzer | Find who doesn't follow you back</title>
+  
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- JSZip for client-side unzip -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>InstaScan</h1>
+    <p class="intro-text">Find out who doesn't follow you back on Instagram - all processed locally in your browser for maximum privacy</p>
+
+    <div class="upload-section">
+      <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--primary); margin-bottom: 16px;"></i>
+      <h3>Upload Instagram Data Export</h3>
+      <p>Select the Instagram data ZIP file you downloaded</p>
+      <label class="upload-btn" for="file-input">
+        <i class="fas fa-file-archive"></i> Choose ZIP File
+      </label>
+      <input type="file" id="file-input" accept=".zip" />
+      <div class="filename" id="filename">No file chosen</div>
+    </div>
+
+    <button id="process-btn" disabled>
+      <i class="fas fa-search"></i> Analyze Now
+    </button>
+
+    <div class="loader" id="loader">
+      <div class="loader-spinner"></div>
+      <p>Processing your data...</p>
+    </div>
+
+    <div class="results" id="results"></div>
+
+    <div class="instructions">
+      <h2>How to Get Your Instagram Data</h2>
+      
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <h3><i class="fas fa-mobile-alt"></i> From Instagram Mobile App</h3>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="accordion-content">
+          <ol class="steps-list">
+            <li>Open your Instagram app and go to your profile</li>
+            <li>Tap the menu (three lines) in the top right corner</li>
+            <li>Go to <strong>Settings and privacy</strong></li>
+            <li>Scroll down and tap <strong>Download your information</strong></li>
+            <li>Under "Request a download", tap <strong>Select types of information</strong></li>
+            <li>Make sure only<strong>Followers and following</strong> is selected (you can unselect other data types to make the export smaller)</li>
+            <li>Tap <strong>Next</strong> at the bottom</li>
+            <li>Select <strong>JSON</strong> as the format and choose your date range</li>
+            <li>Tap <strong>Submit request</strong></li>
+            <li>You'll receive an email from Instagram when your data is ready to download (usually within 24 hours)</li>
+            <li>Download the ZIP file and upload it here</li>
+          </ol>
+          <p><i class="fas fa-lightbulb" style="color: var(--primary);"></i> <strong>Tip:</strong> Request only the Followers and Following data to get your file faster (often in just a few minutes).</p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <h3><i class="fas fa-desktop"></i> From Instagram Web</h3>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="accordion-content">
+          <ol class="steps-list">
+            <li>Go to <a href="https://www.instagram.com" target="_blank">Instagram.com</a> and login</li>
+            <li>Click your profile picture in the top right corner</li>
+            <li>Click <strong>Settings</strong></li>
+            <li>Click <strong>Privacy and security</strong></li>
+            <li>Scroll down to "Data download" section and click <strong>Request download</strong></li>
+            <li>Enter your email address and password</li>
+            <li>Select <strong>JSON</strong> format, select <strong>Followers and following</strong> under "Information types"</li>
+            <li>Click <strong>Submit request</strong></li>
+            <li>You'll receive an email from Instagram when your data is ready to download</li>
+            <li>Download the ZIP file and upload it here</li>
+          </ol>
+          
+          <div class="screenshot-container">
+            <img src="img/Screenshot 2025-05-09 at 7.00.14 PM.png" alt="Instagram data download screen" />
+            <p class="caption">Sample screenshot of the data request screen</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <h3><i class="fas fa-question-circle"></i> Troubleshooting Common Issues</h3>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="accordion-content">
+          <div class="troubleshooting-item">
+            <h4><i class="fas fa-exclamation-triangle"></i> "Could not locate followers or following JSON files"</h4>
+            <p>This usually happens when you're uploading the wrong ZIP file. Instagram sometimes sends you a ZIP containing another ZIP. Make sure to:</p>
+            <ol>
+              <li>Extract the first ZIP file you downloaded</li>
+              <li>Look for a file called something like "instagram_data.zip" inside</li>
+              <li>Upload that inner ZIP file here</li>
+            </ol>
+          </div>
+          
+          <div class="troubleshooting-item">
+            <h4><i class="fas fa-exclamation-triangle"></i> "Unexpected format in followers/following JSON"</h4>
+            <p>Instagram occasionally changes their data export format. Try these solutions:</p>
+            <ul>
+              <li>Make sure you've selected JSON format when requesting your data</li>
+              <li>Try downloading your data again from Instagram</li>
+              <li>Make sure you're using the most recent export (Instagram may have updated their format)</li>
+            </ul>
+          </div>
+          
+          <div class="troubleshooting-item">
+            <h4><i class="fas fa-exclamation-triangle"></i> "Nothing happens when I click Analyze"</h4>
+            <p>This might be due to a very large file or browser limitations. Try:</p>
+            <ul>
+              <li>Using a different browser (Chrome or Firefox recommended)</li>
+              <li>Requesting only Followers and Following data to get a smaller file</li>
+              <li>Making sure your browser is up to date</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="note">
+        <strong>Privacy Note:</strong> This tool processes all data locally in your browser. Your Instagram data never leaves your device, ensuring your privacy.
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Created with <i class="fas fa-heart" style="color: var(--primary);"></i> | 100% secure - all processing happens in your browser | <a href="#" id="toggle-theme"><i class="fas fa-moon"></i> Toggle Theme</a>
+  </footer>
+
+  <script>
+    // Toggle accordion sections
+    function toggleAccordion(element) {
+      const content = element.nextElementSibling;
+      content.classList.toggle('active');
+      
+      // Toggle icon
+      const icon = element.querySelector('.fa-chevron-down, .fa-chevron-up');
+      if (content.classList.contains('active')) {
+        icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+      } else {
+        icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+      }
+    }
+    
+    // Automatically open the first accordion on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const firstAccordion = document.querySelector('.accordion-header');
+      if (firstAccordion) {
+        toggleAccordion(firstAccordion);
+      }
+      
+      // Set up theme toggle
+      const themeToggle = document.getElementById('toggle-theme');
+      const icon = themeToggle.querySelector('i');
+      
+      themeToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Check if we're in light mode
+        const isLightMode = document.body.classList.contains('light-mode');
+        
+        if (isLightMode) {
+          // Switch to dark mode
+          document.body.classList.remove('light-mode');
+          icon.classList.replace('fa-sun', 'fa-moon');
+          localStorage.setItem('theme', 'dark');
+        } else {
+          // Switch to light mode
+          document.body.classList.add('light-mode');
+          icon.classList.replace('fa-moon', 'fa-sun');
+          localStorage.setItem('theme', 'light');
+        }
+      });
+      
+      // Check for saved theme preference
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        document.body.classList.add('light-mode');
+        icon.classList.replace('fa-moon', 'fa-sun');
+      }
+    });
+    
+    // Add drag and drop functionality
+    const uploadSection = document.querySelector('.upload-section');
+    
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      uploadSection.addEventListener(eventName, preventDefaults, false);
+    });
+    
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
+    ['dragenter', 'dragover'].forEach(eventName => {
+      uploadSection.addEventListener(eventName, highlight, false);
+    });
+    
+    ['dragleave', 'drop'].forEach(eventName => {
+      uploadSection.addEventListener(eventName, unhighlight, false);
+    });
+    
+    function highlight() {
+      uploadSection.classList.add('highlight');
+    }
+    
+    function unhighlight() {
+      uploadSection.classList.remove('highlight');
+    }
+    
+    uploadSection.addEventListener('drop', handleDrop, false);
+    
+    function handleDrop(e) {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      
+      if (files.length) {
+        fileInput.files = files;
+        // Trigger the change event manually
+        const event = new Event('change');
+        fileInput.dispatchEvent(event);
+      }
+    }
+  </script>
+  <script src="follow.js"></script>
+</body>
+</html>
