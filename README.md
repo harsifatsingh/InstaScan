@@ -103,4 +103,4 @@ This project is licensed under the [MIT License](LICENSE). Feel free to use, mod
 
 ---
 
-**Made with ❤️ by InstaScan Developers — because your privacy matters.**
+**Made with ❤️ by Harsifat Singh — because your privacy matters.**
