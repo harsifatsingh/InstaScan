@@ -2,6 +2,8 @@
 
 **Find out who doesn't follow you back on Instagram — all processed locally in your browser for maximum privacy.**
 
+Live Site: [https://instascan.netlify.app/](https://instascan.netlify.app/)
+
 ![InstaScan Preview](./img/Screenshot%202025-05-09%20at%207.16.11 PM.png)
 
 ---
@@ -66,7 +68,7 @@
 
 ---
 
-## 🐞 Troubleshooting
+## 🚾 Troubleshooting
 
 1. **"Could not locate followers or following JSON files"**
 
