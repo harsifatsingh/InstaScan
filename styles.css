@@ -525,3 +525,29 @@ body.light-mode li {
     width: 100%;
     height: auto;
 }
+
+footer {
+  text-align: center;
+  padding: 1rem;
+}
+
+footer .social-links {
+  margin-bottom: 0.5rem;
+}
+
+footer .social-links a {
+  margin: 0 0.75rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--text);
+  transition: color 0.2s;
+}
+
+footer .social-links a:hover {
+  color: var(--primary);
+}
+
+footer .footer-meta {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
