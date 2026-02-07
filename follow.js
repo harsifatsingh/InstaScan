@@ -230,7 +230,12 @@ function extractUsernamesFromPages(pages) {
     // Format 1: Array of string_list_data
     if (Array.isArray(page.string_list_data)) {
       page.string_list_data.forEach(item => {
-        if (item.value) usernames.push(item.value);
+        if (item.value) {
+          usernames.push(item.value);
+        } else if (item.href) {
+          const extracted = extractUsernameFromHref(item.href);
+          if (extracted) usernames.push(extracted);
+        }
       });
     } 
     // Format 2: Object with string_list_data
@@ -245,9 +250,28 @@ function extractUsernamesFromPages(pages) {
     else if (page.value) {
       usernames.push(page.value);
     }
+    // Format 5: Title property (common in following.json)
+    else if (page.title) {
+      usernames.push(page.title);
+    }
   });
   
   return usernames;
+}
+
+// Helper function to extract username from Instagram href
+function extractUsernameFromHref(href) {
+  try {
+    const url = new URL(href);
+    const path = url.pathname.replace(/^\/+/, '').replace(/\/+$/, '');
+    if (!path) return undefined;
+    // Handle /_u/username and /username formats
+    const parts = path.split('/');
+    if (parts[0] === '_u' && parts[1]) return parts[1];
+    return parts[0] || undefined;
+  } catch (e) {
+    return undefined;
+  }
 }
 
 // Helper function to get nested data safely
